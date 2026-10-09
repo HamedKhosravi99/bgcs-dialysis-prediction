@@ -1,4 +1,4 @@
-# BGCS: Binary Gaussian Copula Synthesis for early dialysis prediction
+# Binary Gaussian Copula Synthesis: an LLM-powered data augmentation framework for early dialysis prediction in chronic kidney disease
 
 Code for the manuscript *Binary Gaussian Copula Synthesis: an LLM-powered data augmentation framework for early dialysis prediction in chronic kidney disease* by Hamed Khosravi, Milad Khanchi, Mobina Noori, Srinjoy Das, Mohammad Abdullah Al-Mamun and Imtiaz Ahmed (under review at PLOS ONE).
 
