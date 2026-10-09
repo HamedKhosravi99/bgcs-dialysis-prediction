@@ -88,6 +88,7 @@ Two environment variables change the paths. `BGCS_DATA` sets the data file (defa
 
 - All methods use the same 80/20 split (`random_state=42`). The test set has 866 patients, 40 of whom initiated dialysis. Synthetic records are generated from the training dialysis records only.
 - The scripts follow the notebook code and cite the cells they come from (0-based cell positions). Re-running them gives the same medians as the notebooks for the Gaussian copula and the BGCS copula stage. SMOTE and CTGAN medians are within 0.025, and BGCS medians are within one test patient.
+- CTGAN trains on the GPU when one is available (Apple MPS or CUDA), and its random seed does not fix GPU randomness. CTGAN results therefore change slightly from one run to the next (median recall by up to 0.05, one or two test patients). All other steps give identical results when re-run.
 - Screening rule. As in notebook 02, candidates that GPT-2 labels 0 (probability ≤ 0.5) are added to the training data, about 2,690 of the 5,000 per run. See `gpt2_bgcs.py`.
 - Each serialized record is about 960 GPT-2 tokens, and inputs are truncated to 512 tokens. GPT-2 therefore sees about the first 85 of the 159 features.
 - `Refined_dataset.py`, which notebook 02 imports, is not available. `gpt2_bgcs.py` rebuilds its two functions from `serialize_row` in the notebook.
