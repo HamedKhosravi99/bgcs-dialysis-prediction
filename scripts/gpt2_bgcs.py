@@ -296,8 +296,8 @@ def bgcs():
         cand_store[f"run{i}"] = synthetic_minority_samples.astype(np.int8)
         prob_store[f"run{i}"] = probs[:, 0].astype(np.float32)
         synthetic_minority_df['dialysis'] = preds[:, 0]
-        # Screening rule of the notebook (cell 15), kept unchanged so the results match the reported ones:
-        # candidates with predicted label 0 (GPT-2 probability <= 0.5) are added to the training data.
+        # Screening rule (notebook cell 15 and the paper): candidates with predicted label 0 (GPT-2 probability <= 0.5)
+        # are added to the training data, and those above 0.5 are discarded.
         synthetic_minority_df = synthetic_minority_df[synthetic_minority_df['dialysis'] == 0].reset_index(drop=True)
         synthetic_minority_df = synthetic_minority_df.drop(['text'], axis=1)
         synthetic_minority_df['dialysis'] = 1
