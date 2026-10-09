@@ -1,0 +1,27 @@
+# Data from TriNetX are covered by a data use agreement. Never commit them.
+data/*
+!data/README.md
+*.xlsx
+*.xls
+*.csv
+!results/*.csv
+*.pkl
+
+# Generated outputs, synthetic records and model checkpoints
+outputs/
+logs/
+*.npz
+*.npy
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+
+# Python and notebooks
+__pycache__/
+*.py[cod]
+.venv/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
