@@ -1,8 +1,9 @@
 """Fig 6: the truncated CDSS decision tree, drawn with readable fonts.
 
 Rebuilds the tree of notebook 01 cells 202/207/213-219: training data plus the last
-(25th) binary-copula synthetic set (np.random.seed(0), 2,407 rows), default DecisionTreeClassifier,
-drawn to depth 3 as in the paper. The published figure's top nodes are used to confirm the match.
+(25th) binary-copula synthetic set (np.random.seed(0), 2,407 rows), DecisionTreeClassifier with default
+settings, drawn to depth 3 as in the paper. The notebook did not fix a seed, so random_state=0 is used,
+which reproduces the published tree. The script checks this against the published figure's top nodes.
 """
 import os
 
@@ -108,15 +109,11 @@ def main():
     X = balanced_df.drop("dialysis", axis=1)
     y = balanced_df["dialysis"]
 
-    clf, seed_used = None, None
-    for seed in list(range(50)) + [None]:
-        cand = DecisionTreeClassifier(random_state=seed).fit(X, y)
-        if top_nodes(cand, X.columns) == PUBLISHED:
-            clf, seed_used = cand, seed
-            break
-    match = clf is not None
-    if clf is None:
-        clf = DecisionTreeClassifier(random_state=42).fit(X, y)
+    # Notebook 01 did not fix a seed for this tree, and the tree breaks ties between equally good splits at random.
+    # random_state=0 reproduces the published Fig 6, and the check below confirms the match.
+    seed_used = 0
+    clf = DecisionTreeClassifier(random_state=seed_used).fit(X, y)
+    match = top_nodes(clf, X.columns) == PUBLISHED
     print("matches published Fig 6 top nodes:", match, "| random_state:", seed_used,
           "| depth:", clf.get_depth(), "| leaves:", clf.get_n_leaves())
 
