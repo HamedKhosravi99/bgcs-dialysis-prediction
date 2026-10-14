@@ -8,5 +8,6 @@ python scripts/run_methods.py real binary_copula smote gc ctgan
 python scripts/gpt2_bgcs.py finetune validate bgcs
 python scripts/analyze.py
 python scripts/table2_fidelity.py
+python scripts/fig5_recall_gain.py
 python scripts/fig6_tree.py
 python scripts/summarize.py

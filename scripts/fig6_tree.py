@@ -12,6 +12,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from PIL import Image
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 
 from common import OUT, load_split
@@ -89,10 +90,12 @@ def draw_tree(clf, names, fig_dir, max_depth=3):
                     ax.add_patch(FancyBboxPatch((sx - 0.15, sy - 0.1), 0.3, 0.2, boxstyle="round,pad=0.01",
                                                 fc="0.85", ec="0.5", lw=0.5))
                     ax.text(sx, sy, "(...)", ha="center", va="center", fontsize=8, color="0.25")
-    for ext in ["png", "tif"]:
-        fig.savefig(os.path.join(fig_dir, f"Fig6_tree_redrawn.{ext}"), dpi=300,
-                    **({"pil_kwargs": {"compression": "tiff_lzw"}} if ext == "tif" else {}))
+    png = os.path.join(fig_dir, "Fig6_tree_redrawn.png")
+    fig.savefig(png, dpi=300)
     plt.close(fig)
+    # PLOS figure files are RGB TIFF without an alpha channel
+    Image.open(png).convert("RGB").save(os.path.join(fig_dir, "Fig6_tree_redrawn.tif"), dpi=(300, 300),
+                                        compression="tiff_lzw")
 
 
 def main():
