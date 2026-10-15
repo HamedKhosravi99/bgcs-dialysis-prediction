@@ -98,7 +98,8 @@ def draw_tree(clf, names, fig_dir, max_depth=3):
                                         compression="tiff_lzw")
 
 
-def main():
+def build_cdss_tree():
+    """The CDSS tree of notebook 01: training data plus the 25th binary-copula synthetic set."""
     _, train_df, X_train, *_ = load_split()
     np.random.seed(0)
     minority_data = train_df[train_df["dialysis"] == 1].drop(columns=["dialysis"])
@@ -114,8 +115,13 @@ def main():
 
     # Notebook 01 did not fix a seed for this tree, and the tree breaks ties between equally good splits at random.
     # random_state=0 reproduces the published Fig 6, and the check below confirms the match.
+    clf = DecisionTreeClassifier(random_state=0).fit(X, y)
+    return clf, X
+
+
+def main():
+    clf, X = build_cdss_tree()
     seed_used = 0
-    clf = DecisionTreeClassifier(random_state=seed_used).fit(X, y)
     match = top_nodes(clf, X.columns) == PUBLISHED
     print("matches published Fig 6 top nodes:", match, "| random_state:", seed_used,
           "| depth:", clf.get_depth(), "| leaves:", clf.get_n_leaves())
