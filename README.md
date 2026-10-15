@@ -80,7 +80,8 @@ Two environment variables change the paths. `BGCS_DATA` sets the data file (defa
 | Table 3, recall medians and ranges | notebook 01 for SMOTE, CTGAN, Gaussian copula and the BGCS copula stage (saved per-run values in `results/notebook_per_run_recall.csv`), notebook 02 for BGCS |
 | Table 3, 95% CIs | `analyze.py` → `table_original_recall_ci.csv` |
 | Table 4, specificity, precision, AUROC, AUPRC, O/E | `run_methods.py`, `gpt2_bgcs.py`, `analyze.py` → `table_full_metrics.csv` |
-| Paired Wilcoxon tests with Holm correction | `analyze.py` → `table_paired_tests.csv` |
+| Table 4, 95% bootstrap CIs | `analyze.py` → `table_bootstrap_ci.csv` |
+| Paired Wilcoxon tests with Holm correction, exact McNemar and DeLong tests | `analyze.py` → `table_paired_tests.csv` |
 | Benjamini–Hochberg feature counts | `analyze.py` → `table_binomial_multiplicity.csv` |
 | Decision curve analysis | `analyze.py` → `fig_decision_curves`, `RESULTS_SUMMARY.md` |
 | GPT-2 validation, screening counts and timings | `gpt2_bgcs.py` → `outputs/gpt2/validation.json`, `outputs/bgcs/filter_log.csv` |
